@@ -1,24 +1,23 @@
+import { createClient } from "@supabase/supabase-js"
+
+const supabase = createClient(
+  "YOUR_SUPABASE_URL",
+  "YOUR_SUPABASE_ANON_KEY"
+)
+
 export default function App() {
+  async function testConnection() {
+    const { data, error } = await supabase.from("customers").select("*")
+    console.log(data, error)
+  }
+
   return (
     <div style={{ padding: 20, fontFamily: "Arial" }}>
-      <h1>GST Lite Dashboard</h1>
+      <h1>GST Lite</h1>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gap: 20 }}>
-        <div style={{ border: "1px solid black", padding: 20 }}>
-          <h3>Customers</h3>
-          <p>Add / View Customers</p>
-        </div>
-
-        <div style={{ border: "1px solid black", padding: 20 }}>
-          <h3>Items</h3>
-          <p>Manage Products</p>
-        </div>
-
-        <div style={{ border: "1px solid black", padding: 20 }}>
-          <h3>Invoices</h3>
-          <p>Create GST Bills</p>
-        </div>
-      </div>
+      <button onClick={testConnection}>
+        Test Supabase Connection
+      </button>
     </div>
   )
 }
